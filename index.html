@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.calc{
+			text-align: center;
+			border: 1px solid #333;
+			padding: 10px;
+		}
+		button{
+			background-color: #3D4DBC;
+			padding: 5px;
+		}
+		h3{
+			color: #3D4DBC;
+		}
+	</style>
+</head>
+<body>
+<div class="calc">
+	<h1>ELEVATION CALCULATOR</h1>
+	<h3>Please check console to see results</h3>
+	<form role="form">
+		<p>
+			<label>START LAT :</label>
+			<input type="text" class="lat1">
+		</p>
+		<p>
+			<label>START LONG :</label>
+			<input type="text" class="long1">
+		</p>
+		<p>
+			<label>END LAT :</label>
+			<input type="text" class="lat2">
+		</p>
+		<p>
+			<label>END LONG :</label>
+			<input type="text" class="long2">
+		</p>
+		<p>
+			<label>DISTANCE (between start and end (in meters)):</label>
+			<input type="text" class="dist">
+		</p>
+	</form>
+	<button class="get_res">GET RESULTS</button>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".get_res").click(function(){
+			var lat1 = $(".lat1").val();
+			var long1 = $(".long1").val();
+			var lat2 = $(".lat2").val();
+			var long2 = $(".long2").val();
+			var dist = $(".dist").val();
+			var X = Math.cos(lat2)*Math.sin(long1 - long2);
+			var Y = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(long1 - long2);
+			var eleAng = Math.atan2(X, Y);
+			var	rise = Math.sin(eleAng) * dist;
+			var	run = Math.cos(eleAng) * dist;
+			var elevation = rise/run*100;
+			console.log("Angle: " + eleAng +"degree, Rise: "+ rise +", run: "+ run +", elevation: "+ elevation+"%");
+		});
+	});
+</script>
+</body>
+</html>
